@@ -1,0 +1,13 @@
+{
+  "name": "coder",
+  "version": "1.0.0",
+  "description": "Prints bitmap of static data from server",
+  "main": "index.js",
+  "keywords": [],
+  "author": "Bradley Harrington",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^10.5.5",
+    "typescript": "^3.0.1"
+  }
+}
