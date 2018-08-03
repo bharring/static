@@ -7,7 +7,7 @@
   "author": "Bradley Harrington",
   "license": "ISC",
   "scripts": {
-    "start": "concurrently \"http-server -a localhost -p 8000\" \"open http://localhost:8000\" \"websocketd --port=8080 ./count.ts\""
+    "start": "concurrently \"http-server -a localhost -p 8000\" \"open http://localhost:8000\" \"websocketd --port=8080 ./random.ts\""
  },
   "devDependencies": {
     "@types/node": "^10.5.5",
