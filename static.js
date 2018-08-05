@@ -16,7 +16,7 @@ const clearCanvas = () => {
 };
 
 const getRandomData = () => {
-  ws.send("refresh");
+  ws.send(canvas.width * canvas.height / 8);
 };
 
 ws.onopen = () => {
