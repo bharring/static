@@ -3,46 +3,39 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 const difference = document.getElementById("difference");
 
-const byteToBits = byte => {
-  return byte
-    .toString(2)
-    .padStart(8, "0")
-    .split("");
-};
-
-const clearCanvas = () => {
+function clearCanvas() {
   context.fillStyle = "white";
   context.fillRect(0, 0, canvas.width, canvas.height);
-};
+}
 
-const getRandomData = () => {
-  ws.send(canvas.width * canvas.height / 8);
-};
+function getRandomData() {
+  ws.send((canvas.width * canvas.height) / 8);
+}
 
-ws.onopen = () => {
+ws.onopen = function onOpen() {
   console.log("CONNECT");
   getRandomData();
 };
 
-ws.onclose = () => {
+ws.onclose = function onClose() {
   console.log("DISCONNECT");
 };
 
-ws.onmessage = event => {
+ws.onmessage = function onMessage(event) {
   const start = Date.now();
   clearCanvas();
   const pixels = context.getImageData(0, 0, canvas.width, canvas.height);
   const bytes = JSON.parse(event.data).data;
   bytes.forEach((byte, i) => {
-    const bits = byteToBits(byte);
-    bits.forEach((bit, j) => {
-      const dataIndex = i * 32 + j * 4;
-      if (bit === "1") {
+    const mask = 0x80;
+    for (let j = 0; j < 8; j++) {
+      if ((mask >> j) & byte) {
+        const dataIndex = i * 32 + j * 4;
         pixels.data[dataIndex] = 0;
         pixels.data[dataIndex + 1] = 0;
         pixels.data[dataIndex + 2] = 0;
       }
-    });
+    }
   });
   context.putImageData(pixels, 0, 0);
   difference.innerHTML = "execution time: " + (Date.now() - start) + "ms";
