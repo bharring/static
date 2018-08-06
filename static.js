@@ -3,25 +3,25 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 const difference = document.getElementById("difference");
 
-function clearCanvas() {
+const clearCanvas = () => {
   context.fillStyle = "white";
   context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-function getRandomData() {
+const getRandomData = () => {
   ws.send((canvas.width * canvas.height) / 8);
 }
 
-ws.onopen = function onOpen() {
+ws.onopen = () => {
   console.log("CONNECT");
   getRandomData();
 };
 
-ws.onclose = function onClose() {
+ws.onclose = () => {
   console.log("DISCONNECT");
 };
 
-ws.onmessage = function onMessage(event) {
+ws.onmessage = (event) => {
   const start = Date.now();
   clearCanvas();
   const pixels = context.getImageData(0, 0, canvas.width, canvas.height);

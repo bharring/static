@@ -1,11 +1,11 @@
 #!/usr/bin/env ts-node
 import * as fs from "fs";
 
-function bufferToNumber(buffer: Buffer): number {
+const bufferToNumber = (buffer: Buffer): number => {
   const data = buffer.toJSON().data;
   const str = data.map(i => String.fromCharCode(i)).join("");
   return Number(str);
-}
+};
 
 process.stdin.on(
   "data",
